@@ -22,16 +22,17 @@
         </div>
     </div>
 </div>
-<!--breadcrumbs area end-->
 
+
+<!--breadcrumbs area end-->
 <!--product details start-->
-<div class="product_details pt-30">
+<div class="product_details pt-30" itemscope itemtype="http://schema.org/Product">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-tab">
                     <div id="img-1" class="zoomWrapper single-zoom">
-                        <img id="zoom1" src="{{ CDN_SERVER }}/media/{{ product.pk }}/600/0.webp"
+                        <img itemprop="image" id="zoom1" src="{{ CDN_SERVER }}/media/{{ product.pk }}/600/0.webp"
                                  data-zoom-image="{{ CDN_SERVER }}/media/{{ product.pk }}/600/0.webp">
                     </div>
 
@@ -62,8 +63,8 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="product_d_right">
-                        <h1>{{ object.name }}</h1>
+                <div class="product_d_right" >
+                        <h1 itemprop="name">{{ object.name }}</h1>
                         <div class="product_nav">
                             <ul>
                                 <li class="prev"><a href="{% url 'detailed_id' previous.pk %}"><i class="fa fa-angle-left"></i></a></li>
@@ -71,11 +72,12 @@
                             </ul>
                         </div>
 
-                        <div class="product_price">
-                            <span class="old_price">&#x20bd; {{ object.price }}</span>
-                            <span class="current_price">&#x20bd; {{ object.price }}</span>
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="product_price">
+                            <!-- <span class="old_price">&#x20bd; {{ object.price }}</span> -->
+                            <span class="current_price" itemprop="price">{{ object.price }}</span>
+                            <span class="current_price" itemprop="priceCurrency">RUB</span>
                         </div>
-                        <div class="product_desc">
+                        <div class="product_desc" itemprop="description">
                             <p>Склад: Польша</p>
                             <p>Срок доставки от 7 дней</p>
                         </div>
