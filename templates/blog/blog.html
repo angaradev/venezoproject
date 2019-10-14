@@ -90,7 +90,7 @@
                                     <a href="{{ resent.get_absolute_url }}"><img src="{{ resent.image.url }}" alt="{{ resent.title }}"></a>
                                 </div>
                                 <div class="post_info">
-                                    <h3><a href="{% url 'detailed' resent.slug %}">{{ resent.title|truncatechars:20 }}</a></h3>
+                                    <h3><a href="{% url 'detailed' resent.slug %}">{{ reqsent.title|truncatechars:20 }}</a></h3>
                                     <span>{{ resent.publish }}</span>
                                 </div>
                             </div>

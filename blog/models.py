@@ -10,8 +10,6 @@ def get_filename_ext(filepath):
     return name, ext
 
 def upload_image_path(instance, filename):
-    print (instance)
-    print (filename)
     name, ext = get_filename_ext(filename)
     new_filename = random.randint(1, 234982304)
     final_filename = '{}{}'.format(new_filename, ext)

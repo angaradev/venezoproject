@@ -156,6 +156,8 @@ class FacetedListSubCat(BaseFacetedSearchView):
     def get_form_kwargs(self):
         slug = self.kwargs.get('slug')
         subq = CatSubRus.objects.filter(slug=slug, parent_id=0).first()
+        if not subq:
+            raise Http404
         another_sub_ids = list(CatSubRus.objects.filter(parent_id=subq.id).values_list('id', flat=True))
         id_range = list(CatSubRus.objects.filter(parent_id__in=another_sub_ids).values_list('id', flat=True))
         if len(id_range) == 0:
