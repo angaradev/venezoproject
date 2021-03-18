@@ -61,6 +61,7 @@ def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
         total = 0
         for x in products:
             total += x.price
+            
         if instance.subtotal != total:
             instance.subtotal = total
             instance.save()

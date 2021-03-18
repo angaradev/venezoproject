@@ -27,7 +27,10 @@ def home_page(request):
     select_most_viewed = FeaturedProduct.objects.filter(on_main=7).select_related('product_id').all()
     select_bestseller = FeaturedProduct.objects.filter(on_main=8).select_related('product_id')
     blogs = BlogModel.objects.all().order_by('-publish')[:4]
-    cart_obj, new_obj = Cart.objects.new_or_get(request)
+    if request.session.get('cart_id'):
+        cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+    else:
+        cart_obj = None
     context = {
         'CDN_SERVER': settings.CDN_SERVER,
         'name': 'Home page',

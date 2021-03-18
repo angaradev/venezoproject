@@ -48,7 +48,10 @@ class ProductDetailView(DetailView):
         search_string = context['product'].name
         search_string = search_string.split()
         search_string = ' '.join(search_string[:2])
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
 
 
 
@@ -115,7 +118,10 @@ class FacetedListCat(BaseFacetedSearchView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         request = self.request
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['cart'] = cart_obj
         context['CDN_SERVER'] = settings.CDN_SERVER
         context['cats'] = CatSubRus.objects.filter(parent_id=0)
@@ -148,7 +154,10 @@ class FacetedListSubCat(BaseFacetedSearchView):
 
 
         context['object_list'] = AlegroGoods.objects.filter(cat_id=subq.id)
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['cart'] = cart_obj
 
         return context
@@ -193,7 +202,10 @@ class FacetedListSubSubCat(BaseFacetedSearchView):
 
         context['slug'] = self.slug
         context['rus_name'] = subq.rus_name
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['cart'] = cart_obj
         return context
 
@@ -230,7 +242,10 @@ class FacetedListSubSubCatLast(BaseFacetedSearchView):
         #print(subq.parent_id)
         old_q = CatSubRus.objects.filter(id=subq.parent_id).get()
         old_slug, old_name = old_q.slug, old_q.rus_name
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['CDN_SERVER'] = settings.CDN_SERVER
         context['cart'] = cart_obj
         context['cats'] = CatSubRus.objects.filter(parent_id=subq.pk)
@@ -278,7 +293,10 @@ class FacetedListSubSubCatLastSuper(BaseFacetedSearchView):
         #print(subq.parent_id)
         old_q = CatSubRus.objects.filter(id=subq.parent_id).get()
         old_slug, old_name = old_q.slug, old_q.rus_name
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['CDN_SERVER'] = settings.CDN_SERVER
         context['cart'] = cart_obj
         context['cats'] = CatSubRus.objects.filter(parent_id=subq.pk)
@@ -314,7 +332,10 @@ class FacetedSearchView(BaseFacetedSearchView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         request = self.request
-        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        if request.session.get('cart_id'):
+            cart_obj = Cart.objects.just_get(request, request.session.get('cart_id'))
+        else:
+            cart_obj = None
         context['CDN_SERVER'] = settings.CDN_SERVER
         context['cart'] = cart_obj
         context['cats'] = CatSubRus.objects.filter(parent_id=0)
